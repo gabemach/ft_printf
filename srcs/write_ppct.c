@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 17:14:23 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/11 19:26:09 by gmachado         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:57:20 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 t_ftpf   *print_pct(t_ftpf *ftpf)
 {
-    ftpf->width -= 1;
-    check_arg(ftpf, "%");
-    ftpf->fmtlen++;
+	char 		*print;
+	
+	print = ft_strnew(1);
+	print[0] = '%';
+	print = check_prcisn(ftpf, print);
+	ftpf->printlen += ft_strlen(print);
+	if (ftpf->prcisn <= ftpf->printlen)
+		ftpf->fmtlen += ftpf->printlen;
+    else
+		print = check_prcisn(ftpf, print);
+    check_arg(ftpf, print);
     return (ftpf);
 }
 

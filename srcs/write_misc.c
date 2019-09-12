@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 13:42:55 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/10 18:12:08 by gmachado         ###   ########.fr       */
+/*   Updated: 2019/09/11 21:58:01 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void            check_arg(t_ftpf *ftpf, char *print)
     check_arg2(ftpf);
     check_arg3(ftpf);
     ft_putstr(print);
+    if (print != NULL && ftpf->specflag != 'o')
+        free(print);
     if (ftpf->argflag[0] == '-')
         print_arg(ftpf, ' ', ftpf->width - ftpf->printlen, 1);
 }
