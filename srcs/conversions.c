@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 16:06:41 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/11 17:58:57 by gmachado         ###   ########.fr       */
+/*   Updated: 2019/09/12 17:16:37 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 char		*check_si_sign(int len, intptr_t num)
 {
 	char	*str;
-	
-	str = ft_strnew(len);
-	if (str == NULL)
+
+	if (!(str = ft_strnew(len)))
 	{
 		free(str);
 		return (NULL);
 	}
-	else if (num == 0)
+	if (num == 0)
 		str[0] = '0';
 	return (str);
 }
 
-int		simax_len(int base, intptr_t num)
+int			simax_len(int base, intptr_t num)
 {
-	int	len;
+	int		len;
 
 	len = 0;
 	if (num == 0)
@@ -42,7 +41,7 @@ int		simax_len(int base, intptr_t num)
 	return (len);
 }
 
-char	*simaxtoa_base(int base, intptr_t num)
+char		*simaxtoa_base(int base, intptr_t num)
 {
 	int		len;
 	char	*str;
@@ -75,10 +74,10 @@ static int	uimax_len(int base, uintptr_t num)
 	return (len);
 }
 
-char	*uimaxtoa_base(int base, uintptr_t num, t_ftpf *ftpf)
+char		*uimaxtoa_base(int base, uintptr_t num, t_ftpf *ftpf)
 {
-	int			len;
-	char		*str;
+	int		len;
+	char	*str;
 
 	len = uimax_len(base, num);
 	str = ft_strnew(len);
