@@ -6,37 +6,59 @@
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 14:44:27 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/12 17:17:46 by gmachado         ###   ########.fr       */
+/*   Updated: 2019/10/22 18:24:42 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-char	*strfree(char *s1, char *s2, int flag)
+long double	round_check(long double fcpy)
 {
-	char			*str;
+	int				i;
+	char			*round;
 
-	str = ft_strjoin(s1, s2);
-	if (flag == 1)
+	i = 0;
+	fcpy *= 10;
+	round = ft_itoa((int)fcpy);
+	while (round[i] != '\0')
+		i++;
+	i = 0;
+	if (round[i + 1] == '9' && round[i] < '9')
 	{
-		free(s1);
-		return (str);
+		round[i] += 1;
+		round[++i] = '0';
 	}
-	else if (flag == 2)
+	else if (round[i + 1] == '9' && round[i] == '9')
 	{
-		free(s2);
-		return (str);
+		round[i] = 0;
+		round[++i] = '0';
 	}
-	else if (flag == 3)
-	{
-		free(s1);
-		free(s2);
-		return (str);
-	}
-	return (str);
+	fcpy = ft_atoi(round);
+	fcpy /= 10;
+	return (fcpy);
 }
 
-char	*ftoa(long double num, t_ftpf *ftpf)
+char	*fstring(t_ftpf *ftpf, long double fpart, char *fstr)
+{
+	int				i;
+	long double		fcpy;
+
+	i = 0;
+	fstr = ft_memset(fstr, '0', ftpf->prcisn);
+	fpart = fpart < 0 ? -fpart : fpart;
+	while (i < ftpf->prcisn)
+	{
+		fpart *= 10;
+		fcpy = fpart;
+		fcpy = round_check(fcpy);
+		fstr[i++] = (int)fcpy + '0';
+		fpart -= (int)fcpy;
+	}
+	return (fstr);
+}
+
+char		*ftoa(long double num, t_ftpf *ftpf)
 {
 	int				i;
 	char			*str;
@@ -46,17 +68,15 @@ char	*ftoa(long double num, t_ftpf *ftpf)
 
 	i = 0;
 	ipart = (intptr_t)num;
+	ftpf->sinum = ipart;
 	fpart = num - (long double)ipart;
 	str = simaxtoa_base(10, ipart);
-	if (ftpf->prcisn)
-		fstr = ft_strnew(ftpf->prcisn);
+	if ((num < 0 && ipart == 0) || num < 0)
+		str = strfree("-", str, 2);
 	if (ftpf->prcisn)
 	{
-		while (i < ftpf->prcisn)
-		{
-			fpart *= 10;
-			fstr[i++] = (int)fpart % 10 + 48;
-		}
+		fstr = ft_strnew(ftpf->prcisn);
+		fstr = fstring(ftpf, fpart, fstr);
 		str = strfree(str, ".", 1);
 		str = strfree(str, fstr, 3);
 	}

@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intlen.c                                        :+:      :+:    :+:   */
+/*   ft_strfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 19:26:31 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/17 12:11:18 by gmachado         ###   ########.fr       */
+/*   Created: 2019/10/22 17:43:03 by gmachado          #+#    #+#             */
+/*   Updated: 2019/10/22 18:25:10 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_intlen(int n)
+char	*strfree(char *s1, char *s2, int flag)
 {
-	int i;
+	char			*str;
 
-	i = (n <= 0) ? 1 : 0;
-	while (n != 0)
+	str = ft_strjoin(s1, s2);
+	if (flag == 1)
 	{
-		n /= 10;
-		i++;
+		free(s1);
+		return (str);
 	}
-	return (i);
+	else if (flag == 2)
+	{
+		free(s2);
+		return (str);
+	}
+	else if (flag == 3)
+	{
+		free(s1);
+		free(s2);
+		return (str);
+	}
+	return (str);
 }

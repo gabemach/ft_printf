@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 19:05:26 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/12 17:18:22 by gmachado         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:20:00 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ t_ftpf		*swap_print(t_ftpf *ftpf)
 		print_p(ftpf);
 	if (*flag == 'u' || *flag == 'o' || *flag == 'x' || *flag == 'X')
 	{
-		if (ftpf->argflag[1] == '+')
-			ftpf->argflag[1] = '\0';
-		if (ftpf->prcisn < 0)
-			ftpf->prcisn = 1;
+		set_ui(ftpf);
 		print_ui(ftpf);
 	}
 	if (*flag == 'f')
 		print_float(ftpf);
+	if (*flag == 'b')
+		print_binary(ftpf);
 	if (*flag == '%')
 		print_pct(ftpf);
+	if (*flag == 'n')
+		print_n(ftpf);
 	return (ftpf);
 }
 

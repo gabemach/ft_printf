@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 16:23:59 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/12 17:18:47 by gmachado         ###   ########.fr       */
+/*   Updated: 2019/10/22 14:57:13 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct		s_ftpf
 	long int		prcisn;
 	long int		width;
 	intptr_t		sinum;
+	uintptr_t		uinum;
+	char			*string;
 }					t_ftpf;
 
 int					ft_printf(const char *fmt, ...);
@@ -60,14 +62,20 @@ t_ftpf				*print_si(t_ftpf *ftpf);
 t_ftpf				*print_ui(t_ftpf *ftpf);
 t_ftpf				*print_p(t_ftpf *ftpf);
 t_ftpf				*print_float(t_ftpf *ftpf);
+t_ftpf				*print_binary(t_ftpf *ftpf);
+t_ftpf				*print_n(t_ftpf *ftpf);
 void				print_arg(t_ftpf *ftpf, char c, int len, int new_len);
 
 int					simax_len(int base, intptr_t num);
 char				*check_prcisn(t_ftpf *ftpf, char *print);
+char				*print_prcisn(t_ftpf *ftpf, char *print);
 void				check_arg(t_ftpf *ftpf, char *print);
-void				check_arg2(t_ftpf *ftpf);
-void				check_arg3(t_ftpf *ftpf);
 char				*ftoa(long double num, t_ftpf *ftpf);
 char				*strfree(char *s1, char *s2, int flag);
+void				set_ui(t_ftpf *ftpf);
+void				print_string(t_ftpf *ftpf, int len);
+void				print_sign(t_ftpf *ftpf);
+uintptr_t			check_uiconv(t_ftpf *ftpf);
+intptr_t			check_siconv(t_ftpf *ftps);
 
 #endif

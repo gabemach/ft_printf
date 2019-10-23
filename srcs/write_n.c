@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intlen.c                                        :+:      :+:    :+:   */
+/*   write_n.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmachado <gmachado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/26 19:26:31 by gmachado          #+#    #+#             */
-/*   Updated: 2019/09/17 12:11:18 by gmachado         ###   ########.fr       */
+/*   Created: 2019/09/17 16:07:17 by gmachado          #+#    #+#             */
+/*   Updated: 2019/10/22 18:26:59 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_intlen(int n)
+t_ftpf	*print_n(t_ftpf *ftpf)
 {
-	int i;
+	char	*print;
 
-	i = (n <= 0) ? 1 : 0;
-	while (n != 0)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
+	ftpf->sinum = ftpf->fmtlen;
+	print = simaxtoa_base(10, ftpf->sinum);
+	ftpf->printlen = ft_strlen(print);
+	ft_putstr(print);
+	ftpf->fmtlen += ftpf->printlen;
+	return (ftpf);
 }
